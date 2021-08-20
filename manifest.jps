@@ -1,0 +1,36 @@
+jpsType: install
+jpsVersion: '1.9.1'
+name: VPSCreationExample
+id: vps-creation-example
+logo: /images/logo.png
+  
+description: 
+  text:  VPS Creation example
+  short: VPS Creation Example
+
+settings:
+  fields:
+    - name: distro
+      type: list
+      caption: Linux Distribution
+      values:
+        ubuntu: ubuntu-vps
+      default: ubuntu-vps
+      hideLabel: false
+      editable: false
+  
+nodes:  
+  - nodeType: ${settings.distro}
+    nodeGroup: vps
+    count: 1
+    cloudlets: 16
+    distribution:    
+      zones: 
+      - disk: ssd
+
+success: 
+
+    text: |
+        Below you will find your root credential
+        \
+        ....
