@@ -3,6 +3,9 @@ jpsVersion: '1.9.1'
 name: VPSCreationExample
 id: vps-creation-example
 logo: /images/logo.png
+
+globals:
+  vpsPswd: ${fn.password}
   
 description: 
   text:  VPS Creation example
@@ -19,7 +22,7 @@ settings:
       hideLabel: false
       editable: false
   
-nodes:  
+nodes:
   - nodeType: ${settings.distro}
     nodeGroup: vps
     count: 1
@@ -27,10 +30,10 @@ nodes:
     distribution:    
       zones: 
       - disk: ssd
-
+      
+onInstall:
+  - cmd[vps]: echo "root:${globals.vpsPswd}"|chpasswd
 success: 
 
     text: |
-        Below you will find your root credential
-        \
-        ....
+      The root password is ${globals.vpsPswd}
