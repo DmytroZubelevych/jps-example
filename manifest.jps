@@ -21,6 +21,16 @@ settings:
       default: ubuntu-vps
       hideLabel: false
       editable: false
+      
+    - name: script
+      type: list
+      caption: Script to execute
+      values:
+        script1: Execute Script 1
+        script2: Execute Script 2
+      default: script1
+      hideLabel: false
+      editable: false
   
 nodes:
   - nodeType: ${settings.distro}
@@ -32,7 +42,11 @@ nodes:
       - disk: ssd
       
 onInstall:
-  - cmd[vps]: echo "root:${globals.vpsPswd}"|chpasswd
+  - cmd[vps]: |-
+      echo "root:${globals.vpsPswd}"|chpasswd;
+      wget https://raw.githubusercontent.com/DmytroZubelevych/jps-example/master/${settings.script}.sh;
+      chmod +x ${settings.script}.sh && bash ${settings.script}.sh
+      
 success: 
 
     text: |
